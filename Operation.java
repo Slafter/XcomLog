@@ -1,5 +1,6 @@
 package xcom.log;
 
+
 public class Operation extends Event {
 	public static final int MAX_SOLDIERS_PER_MISSION = 12;
 	
