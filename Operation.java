@@ -42,7 +42,7 @@ public class Operation extends Event {
 	
 	// Outcomes
 	public static final int SUCCESS = 	0;
-	public static final int	ABORTED = 	1; // failed with surviving soldiers
+	public static final int ABORTED = 	1; // failed with surviving soldiers
 	public static final int FAILED = 	2; // failed without surviving soldiers
 	
 	private String name;
@@ -87,10 +87,86 @@ public class Operation extends Event {
 		this.majorEvent = true;
 	}
 	
+	Operation(Operation operation) {
+		this.name = operation.getName();
+		this.operationId = operation.getOperationId();
+		this.location = operation.getLocation();
+		this.kills = operation.getKills();
+		this.type = operation.getType();
+		this.deaths = operation.getDeaths();
+		this.injuries = operation.getInjuries();
+		this.meld = operation.getMeld();
+		this.elerium = operation.getElerium();
+		this.alloys = operation.getAlloys();
+		this.fragments = operation.getFragments();
+		this.civiliansSaved = operation.getCiviliansSaved();
+		this.outcome = operation.getOutcome();
+		this.soldierId = operation.getSoldierId();
+		this.majorEvent = true;
+		// doesn't add to number of operations
+	}
+	
 	public String getName() {
 		return name;
-	}	
-	// TODO Rest of the getters
+	}
+	
+	public int getOperationId() {
+		return operationId;
+	}
+	
+	public int getLocation() {
+		return location;
+	}
+	
+	public int getKills() {
+		return kills;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public int getDeaths() {
+		return deaths;
+	}
+	
+	public int getInjuries() {
+		return injuries;
+	}
+	
+	public int getMeld() {
+		return meld;
+	}
+	
+	public int getElerium() {
+		return elerium;
+	}
+	
+	public int getAlloys() {
+		return alloys;
+	}
+	
+	public int getFragments () {
+		return fragments;
+	}
+	
+	public int getCiviliansSaved() {
+		return civiliansSaved;
+	}
+	
+	public int getOutcome() {
+		return outcome;
+	}
+	
+	public int[] getSoldierId() {
+		int[] soldierIdCopy = new int[MAX_SOLDIERS_PER_MISSION];
+		
+		for (int i = 0; i < soldierIdCopy.length; i++) {
+			soldierIdCopy[i] = soldierId[i];
+		}
+		
+		return soldierIdCopy;
+	}
 	
 	public void setName(String name) {
 		this.name = name;
@@ -145,5 +221,32 @@ public class Operation extends Event {
 		for (int i = 0; i < soldierId.length; i++) {
 			this.soldierId[i] = soldierId[i];
 		}
+	}
+	
+	public String toString() {
+		String output;
+		output = "\nName:\t" 		+ this.name
+				+ "\nID:\t" 		+ this.operationId
+				+ "\nLocation:\t"	+ this.location
+				+ "\nKills:\t"		+ this.kills
+				+ "\nType:\t"		+ this.type
+				+ "\nDeaths:\t"		+ this.deaths
+				+ "\nInjuries:\t"	+ this.injuries
+				+ "\nMeld:\t"		+ this.meld
+				+ "\nElerium:\t"	+ this.elerium
+				+ "\nAlloys:\t"		+ this.alloys
+				+ "\nFragments:\t"	+ this.fragments
+				+ "\nOutcome:\t"	+ this.outcome;
+		
+		if (this.type == TERROR_ATTACK)
+			output += "\nCivilians:\t" + this.civiliansSaved;
+		
+		output += "\nSoldiers:\t";
+		
+		for (int i = 0; i < soldierId.length; i++) {
+			output += soldierId[i] + " ";
+		}
+				
+		return output;
 	}
 }
