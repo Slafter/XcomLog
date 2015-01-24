@@ -118,12 +118,88 @@ public class Operation extends Event {
 		return location;
 	}
 	
+	public String getLocationString() {
+		if (this.location == UNITED_STATES)
+			return "United States";
+		else if (this.location == CANADA)
+			return "Canada";
+		else if (this.location == MEXICO)
+			return "Mexico";
+		else if (this.location == ARGENTINA)
+			return "Argentina";
+		else if (this.location == BRAZIL)
+			return "Brazil";
+		else if (this.location == EGYPT)
+			return "Egypt";
+		else if (this.location == SOUTH_AFRICA)
+			return "South Africa";
+		else if (this.location == NIGERIA)
+			return "Nigeria";
+		else if (this.location == UNITED_KINGDOM)
+			return "United Kingdom";
+		else if (this.location == RUSSIA)
+			return "Russia";
+		else if (this.location == FRANCE)
+			return "France";
+		else if (this.location == GERMANY)
+			return "Germany";
+		else if (this.location == CHINA)
+			return "China";
+		else if (this.location == JAPAN)
+			return "Japan";
+		else if (this.location == INDIA)
+			return "India";
+		else if (this.location == AUSTRALIA)
+			return "Australia";
+		else
+			return "";
+	}
+	
 	public int getKills() {
 		return kills;
 	}
 	
 	public int getType() {
 		return type;
+	}
+	
+	public String getTypeString() {
+		if (this.type == ALIEN_ABDUCTION)
+			return "Alien Abduction";
+		else if (this.type == UFO_CRASH)
+			return "UFO Crash Site";
+		else if (this.type == UFO_LANDING)
+			return "UFO Landing";
+		else if (this.type == TERROR_ATTACK)
+			return "Terror Attack";
+		else if (this.type == TARGET_EXTRACTION)
+			return "Target Extraction";
+		else if (this.type == TARGET_ESCORT)
+			return "Target Escort";
+		else if (this.type == ASSET_RECOVERY)
+			return "Asset Recovery";
+		else if (this.type == BOMB_DISPOSAL)
+			return "Bomb Disposal";
+		else if (this.type == SLINGSHOT)
+			return "Slingshot";
+		else if (this.type == PROGENY)
+			return "Progeny";
+		else if (this.type == BASE_ASSAULT)
+			return "Base Assault";
+		else if (this.type == BASE_DEFENSE)
+			return "Base Defense";
+		else if (this.type == SITE_RECON)
+			return "Site Recon";
+		else if (this.type == TEMPLE_SHIP)
+			return "Temple Ship";
+		else if (this.type == COVERT_EXTRACTION)
+			return "Covert Extraction";
+		else if (this.type == COVERT_RECOVERY)
+			return "Covert Recovery";
+		else if (this.type == EXALT_BASE)
+			return "Exalt Base Assault";
+		else
+			return "";
 	}
 	
 	public int getDeaths() {
