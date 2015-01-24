@@ -301,16 +301,16 @@ public class Operation extends Event {
 	
 	public String toString() {
 		String output;
-		output = "\nName:\t" 		+ this.name
-				+ "\nID:\t" 		+ this.operationId
-				+ "\nLocation:\t"	+ this.location
-				+ "\nKills:\t"		+ this.kills
-				+ "\nType:\t"		+ this.type
-				+ "\nDeaths:\t"		+ this.deaths
+		output = "Name:\t\t" 		+ this.name
+				+ "\nID:\t\t" 		+ this.operationId
+				+ "\nLocation:\t"	+ this.getLocationString()
+				+ "\nKills:\t\t"	+ this.kills
+				+ "\nType:\t\t"		+ this.getTypeString()
+				+ "\nDeaths:\t\t"	+ this.deaths
 				+ "\nInjuries:\t"	+ this.injuries
-				+ "\nMeld:\t"		+ this.meld
+				+ "\nMeld:\t\t"		+ this.meld
 				+ "\nElerium:\t"	+ this.elerium
-				+ "\nAlloys:\t"		+ this.alloys
+				+ "\nAlloys:\t\t"	+ this.alloys
 				+ "\nFragments:\t"	+ this.fragments
 				+ "\nOutcome:\t"	+ this.outcome;
 		
