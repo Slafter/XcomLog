@@ -3,6 +3,7 @@ package xcom.log;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
@@ -66,15 +67,12 @@ public class XcomLog {
 		myOperation2.setInjuries(1);
 		myOperation2.setName("Severed Thorn");
 		
-		myCalendarSheet.addEventAtDay(myOperation1, 0);
-		myCalendarSheet.addEventAtDay(myOperation2, 0);
+		myCalendarSheet.addEvent(myOperation1, 0);
+		myCalendarSheet.addEvent(myOperation2, new GregorianCalendar(2015, 3, 1));
 		
 		System.out.print(myCalendarSheet.getEvent(0, 0).toString());
 		System.out.println();
 		System.out.print(myCalendarSheet.getEvent(0, 1).toString());
-		
-		
-		
 		
 
 	}
