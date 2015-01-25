@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 public class CalendarSheet {
 	
 	public static final int MAX_CALENDAR_DAYS = 1500;
-	private static final Calendar startDate = new GregorianCalendar(2015, 3, 1);
+	private static final Calendar START_DATE = new GregorianCalendar(2015, 3, 1);
 	private static final long millisecondsPerDay = 86400000;
 	
 	private CalendarDay[] calendar = new CalendarDay[MAX_CALENDAR_DAYS];
@@ -40,7 +40,7 @@ public class CalendarSheet {
 		long index = 0;
 		long milliseconds;
 		
-		milliseconds = calendar.getTimeInMillis() - startDate.getTimeInMillis();
+		milliseconds = calendar.getTimeInMillis() - START_DATE.getTimeInMillis();
 		index = milliseconds / millisecondsPerDay;
 		
 		return (int)index;
