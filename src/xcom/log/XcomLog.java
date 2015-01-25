@@ -74,7 +74,7 @@ public class XcomLog {
 		System.out.println();
 		System.out.print(myCalendarSheet.getEvent(0, 1).toString());
 		
-		
+		// so like, did all that push pull stuff work?
 		
 		
 

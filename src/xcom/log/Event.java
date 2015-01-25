@@ -11,5 +11,4 @@ public abstract class Event {
 	public boolean isMajorEvent() {
 		return majorEvent;
 	}
-	
 }

@@ -32,5 +32,4 @@ public class CalendarDay {
 		
 		return i;
 	}
-
 }

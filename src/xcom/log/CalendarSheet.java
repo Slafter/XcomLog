@@ -45,5 +45,4 @@ public class CalendarSheet {
 		
 		return (int)index;
 	}
-	
 }
