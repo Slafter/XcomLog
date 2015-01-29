@@ -13,8 +13,9 @@ public class Soldier {
 	public static final int MEDIC = 	6;
 	public static final int	ENGINEER = 	7;
 	
-	public static final int MAX_RANK = 			7;
-	public static final int NUM_GROWTH_STATS = 	4;
+	public static final int WOUNDED = 				0;
+	public static final int GRAVELY_WOUNDED = 		1;
+	public static final int CRITICALLY_WOUNDED = 	2;
 	
 	public static final int LIEUTENANT = 		0;
 	public static final int CAPTAIN = 			1;
@@ -24,6 +25,8 @@ public class Soldier {
 	
 	private Calendar dateRecruited;
 	private String name;
+	private static int numberOfSoldiers = 0;
+	private int soldierId;
 	private int specialization;
 	private int baseHp;
 	private int baseMobility;
@@ -36,10 +39,10 @@ public class Soldier {
 	private boolean isMec;
 	private boolean isGeneMod;
 	
-	private int[][] statGrowth = new int[MAX_RANK][NUM_GROWTH_STATS]; 
-	// TODO need to increase array length for each critical wound
+	private int[][] operationHistory = new int[10][6];
+	// operationId, change in (rank, hp, mobility, will, aim, woundedStatus, daysOut)
 	
-	
+
 	Soldier () {
 		
 	}
