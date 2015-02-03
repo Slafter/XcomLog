@@ -14,12 +14,7 @@ import jxl.write.Number;
 
 public class XcomLog {
 
-	/**
-	 * @param args
-	 * @throws WriteException 
-	 */
 	public static void main(String[] args) throws BiffException, IOException, WriteException {
-		// TODO Auto-generated method stub
 			
 		/*WritableWorkbook workbook = Workbook.createWorkbook(new File("output.xls")); 
 		
@@ -56,16 +51,29 @@ public class XcomLog {
 		infoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		infoFrame.setVisible(true); */
 		
+		Soldier mySoldier1 = new Soldier(new GregorianCalendar(2015, 3, 1), "Aaron", 
+				4, 13, 30, 65, 0);
+		Soldier mySoldier2 = new Soldier(new GregorianCalendar(2015, 3, 2), "Slafter", 
+				3, 15, 25, 70, 2);
+		
 		CalendarSheet myCalendarSheet = new CalendarSheet();
-		Operation myOperation1 = new Operation(Operation.ALIEN_ABDUCTION, Operation.UNITED_STATES);
+		Operation myOperation1 = new Operation(Operation.ALIEN_ABDUCTION, Operation.UNITED_STATES, new int[] {0,1});
 		myOperation1.setKills(10);
-		myOperation1.setInjuries(2);
+		myOperation1.setInjuries(0);
 		myOperation1.setName("Blinding Heat");
+		mySoldier1.addOperation(Operation.getNumberOfOperations() - 1, 3, 1, 
+				Soldier.ASSAULT, 5, 13, 35, 70, Soldier.NON_WOUNDED, 0);
+		mySoldier2.addOperation(Operation.getNumberOfOperations() - 1, 2, 1, 
+				Soldier.INFANTRY, 4, 15, 30, 74, Soldier.NON_WOUNDED, 0);
 		
 		Operation myOperation2 = new Operation(Operation.UFO_CRASH, Operation.CANADA);
 		myOperation2.setKills(12);
 		myOperation2.setInjuries(1);
 		myOperation2.setName("Severed Thorn");
+		mySoldier1.addOperation(Operation.getNumberOfOperations() - 1, 3, 1, 
+				5, 13, 35, 70, Soldier.NON_WOUNDED, 0);
+		mySoldier2.addOperation(Operation.getNumberOfOperations() - 1, 2, 1, 
+				4, 15, 30, 74, Soldier.WOUNDED, 12);
 		
 		myCalendarSheet.addEvent(myOperation1, 0);
 		myCalendarSheet.addEvent(myOperation2, new GregorianCalendar(2015, 3, 1));
@@ -74,9 +82,10 @@ public class XcomLog {
 		System.out.println();
 		System.out.print(myCalendarSheet.getEvent(0, 1).toString());
 		
-		// so like, did all that push pull stuff work?
 		
-		
+		System.out.println();
+		System.out.println(mySoldier1.toString());
+		System.out.println(mySoldier2.toString());
 
 	}
 

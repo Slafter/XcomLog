@@ -114,6 +114,10 @@ public class Operation extends Event {
 		return operationId;
 	}
 	
+	public static int getNumberOfOperations() {
+		return numberOfOperations;
+	}
+	
 	public int getLocation() {
 		return location;
 	}
@@ -234,6 +238,17 @@ public class Operation extends Event {
 		return outcome;
 	}
 	
+	public String getOutcomeString() {
+		if (outcome == SUCCESS)
+			return "Success";
+		else if (outcome == ABORTED)
+			return "Aborted";
+		else if (outcome == FAILED)
+			return "Failed";
+		else
+			return "";
+	}
+	
 	public int[] getSoldierId() {
 		int[] soldierIdCopy = new int[MAX_SOLDIERS_PER_MISSION];
 		
@@ -312,7 +327,7 @@ public class Operation extends Event {
 				+ "\nElerium:\t"	+ this.elerium
 				+ "\nAlloys:\t\t"	+ this.alloys
 				+ "\nFragments:\t"	+ this.fragments
-				+ "\nOutcome:\t"	+ this.outcome;
+				+ "\nOutcome:\t"	+ this.getOutcomeString();
 		
 		if (this.type == TERROR_ATTACK)
 			output += "\nCivilians:\t" + this.civiliansSaved;
