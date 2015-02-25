@@ -75,12 +75,20 @@ public class XcomLog {
 		mySoldier2.addOperation(Operation.getNumberOfOperations() - 1, 2, 1, 
 				4, 15, 30, 74, Soldier.WOUNDED, 12);
 		
+		Operation myOperation3 = new Operation(Operation.TARGET_ESCORT, Operation.FRANCE);
+		myOperation3.setKills(14);
+		myOperation3.setName("Banished King");
+		mySoldier2.addOperation(Operation.getNumberOfOperations() - 1, 4, Soldier.NON_WOUNDED, 0);
+		
 		myCalendarSheet.addEvent(myOperation1, 0);
 		myCalendarSheet.addEvent(myOperation2, new GregorianCalendar(2015, 3, 1));
+		myCalendarSheet.addEvent(myOperation3, new GregorianCalendar(2015, 3, 1));
 		
 		System.out.print(myCalendarSheet.getEvent(0, 0).toString());
 		System.out.println();
 		System.out.print(myCalendarSheet.getEvent(0, 1).toString());
+		System.out.println();
+		System.out.print(myCalendarSheet.getEvent(0, 2).toString());
 		
 		
 		System.out.println();
