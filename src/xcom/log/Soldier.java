@@ -35,15 +35,7 @@ public class Soldier {
 	public static final int COLONEL = 			3;
 	public static final int FIELD_COMMANDER = 	4;
 	
-	private static final int OPERATION_ID = 	0; // for use with the operationHistory array
-	private static final int KILLS = 			1;
-	private static final int RANK = 			2;
-	private static final int HP = 				3;
-	private static final int MOBILITY = 		4;
-	private static final int WILL = 			5;
-	private static final int AIM = 				6;
-	private static final int WOUNDED_STATUS = 	7;
-	private static final int DAYS_OUT = 		8;
+	public static final int NO_OPERATION = 		-1;
 	
 	private Calendar dateRecruited;
 	private String name;
@@ -57,13 +49,12 @@ public class Soldier {
 	private int defense; // only changes with MEC conversion
 	private int officerRank = NON_OFFICER;
 	private int numOperations = 0;
+	private int numStatChanges = 0;
 	private boolean isPsion;
 	private boolean isMec;
 	private boolean isGeneMod;
 	
-	private int[][] operationHistory = new int[1][9];
-	// operationId, new (kills, rank, hp, mobility, will, aim, woundedStatus, daysOut)
-	
+	private SoldierStats[] statHistory = new SoldierStats[1];
 
 	Soldier (Calendar dateRecruited, String name, int hp, int mobility, int will, int aim, int defense) {
 		this.dateRecruited = dateRecruited;
@@ -80,79 +71,90 @@ public class Soldier {
 	// includes specialization for the first rank up
 	public void addOperation (int operationId, int kills, int rank, int specialization, 
 			int hp, int mobility, int will, int aim, int woundedStatus, int daysOut) {
-		if (numOperations == 0) {
-			operationHistory[0][OPERATION_ID] = operationId;
-			operationHistory[0][KILLS] = kills;
-			operationHistory[0][RANK] = rank;
-			operationHistory[0][HP] = hp;
-			operationHistory[0][MOBILITY] = mobility;
-			operationHistory[0][WILL] = will;
-			operationHistory[0][AIM] = aim;
-			operationHistory[0][WOUNDED_STATUS] = woundedStatus;
-			operationHistory[0][DAYS_OUT] = daysOut;
+		if (numStatChanges == 0) {
+			statHistory[0] = new SoldierStats(operationId, kills, rank, hp, mobility, 
+					will, aim, woundedStatus, daysOut);
 			this.specialization = specialization;
 			numOperations++;
+			numStatChanges++;
 		}
 		else {
-			operationHistory = addRowToHistoryArray(operationHistory);
-			operationHistory[getNextEmptyRow(operationHistory)][OPERATION_ID] = operationId;
-			operationHistory[getNextEmptyRow(operationHistory)][KILLS] = kills;
-			operationHistory[getNextEmptyRow(operationHistory)][RANK] = rank;
-			operationHistory[getNextEmptyRow(operationHistory)][HP] = hp;
-			operationHistory[getNextEmptyRow(operationHistory)][MOBILITY] = mobility;
-			operationHistory[getNextEmptyRow(operationHistory)][WILL] = will;
-			operationHistory[getNextEmptyRow(operationHistory)][AIM] = aim;
-			operationHistory[getNextEmptyRow(operationHistory)][WOUNDED_STATUS] = woundedStatus;
-			operationHistory[getNextEmptyRow(operationHistory)][DAYS_OUT] = daysOut;
+			statHistory = addRowToHistoryArray(statHistory);
+			statHistory[getNextEmptyRow(statHistory)] = new SoldierStats(operationId, kills, 
+					rank, hp, mobility, will, aim, woundedStatus, daysOut);
 			this.specialization = specialization;
 			numOperations++;
+			numStatChanges++;
 		}
 	}
 	
-	// generic add operation
+	// assumes a rank up, but not the first one
 	public void addOperation (int operationId, int kills, int rank, int hp, int mobility, 
 			int will, int aim, int woundedStatus, int daysOut) {
-		if (numOperations == 0) {
-			operationHistory[0][OPERATION_ID] = operationId;
-			operationHistory[0][KILLS] = kills;
-			operationHistory[0][RANK] = rank;
-			operationHistory[0][HP] = hp;
-			operationHistory[0][MOBILITY] = mobility;
-			operationHistory[0][WILL] = will;
-			operationHistory[0][AIM] = aim;
-			operationHistory[0][WOUNDED_STATUS] = woundedStatus;
-			operationHistory[0][DAYS_OUT] = daysOut;
+		// TODO there's something redundant in here, brain not functioning...
+		if (numStatChanges == 0) {
+			statHistory[0] = new SoldierStats(operationId, kills, rank, hp, mobility, 
+					will, aim, woundedStatus, daysOut);
 			numOperations++;
+			numStatChanges++;
 		}
 		else {
-			operationHistory = addRowToHistoryArray(operationHistory);
-			operationHistory[getNextEmptyRow(operationHistory)][OPERATION_ID] = operationId;
-			operationHistory[getNextEmptyRow(operationHistory)][KILLS] = kills;
-			operationHistory[getNextEmptyRow(operationHistory)][RANK] = rank;
-			operationHistory[getNextEmptyRow(operationHistory)][HP] = hp;
-			operationHistory[getNextEmptyRow(operationHistory)][MOBILITY] = mobility;
-			operationHistory[getNextEmptyRow(operationHistory)][WILL] = will;
-			operationHistory[getNextEmptyRow(operationHistory)][AIM] = aim;
-			operationHistory[getNextEmptyRow(operationHistory)][WOUNDED_STATUS] = woundedStatus;
-			operationHistory[getNextEmptyRow(operationHistory)][DAYS_OUT] = daysOut;
+			statHistory = addRowToHistoryArray(statHistory);
+			statHistory[getNextEmptyRow(statHistory)] = new SoldierStats(operationId, kills, 
+					rank, hp, mobility, will, aim, woundedStatus, daysOut);
 			numOperations++;
+			numStatChanges++;
 		}
 	}
 	
-	private int[][] addRowToHistoryArray(int[][] array) {
-		int[][] modifiedArray = new int[array.length + 1][array[0].length]; // robust to future length changes
+	// add operation, no rank up
+	public void addOperation (int operationId, int kills, int woundedStatus, int daysOut) {
+		
+		if (numStatChanges == 0) {
+			statHistory[0] = new SoldierStats(operationId, kills, Soldier.ROOKIE, baseHp, baseMobility, 
+					baseWill, baseAim, woundedStatus, daysOut);
+			numOperations++;
+			numStatChanges++;
+		}
+		else {
+			int previousOpIndex = statHistory.length - 1;
+			statHistory = addRowToHistoryArray(statHistory);
+			// assigns unchanged values to new operation, ie. rank is unchanged so use last mission's rank
+			statHistory[getNextEmptyRow(statHistory)] = new SoldierStats(operationId, kills, 
+					statHistory[previousOpIndex].getRank(), statHistory[previousOpIndex].getHp(), 
+					statHistory[previousOpIndex].getMobility(), statHistory[previousOpIndex].getWill(), 
+					statHistory[previousOpIndex].getAim(), woundedStatus, daysOut);
+			numOperations++;
+			numStatChanges++;
+		}
+	}
+	
+	public void addPsiTraining (int psiTrainingId, int will) {
+		// not possible to psi train without at least one (5, technically) change in stats
+		statHistory = addRowToHistoryArray(statHistory);
+		statHistory[getNextEmptyRow(statHistory)] = new SoldierStats(psiTrainingId, will);
+		numStatChanges++;
+	}
+	
+	public void addMecConversion (int mecConversionId, int hp, int mobility, int will, int aim) {
+		// not possible to mec convert without at least one stat change
+		statHistory = addRowToHistoryArray(statHistory);
+		statHistory[getNextEmptyRow(statHistory)] = new SoldierStats(mecConversionId, hp, mobility, will, aim);
+		numStatChanges++;
+	}
+	
+	private SoldierStats[] addRowToHistoryArray(SoldierStats[] statHistory) {
+		SoldierStats[] modifiedArray = new SoldierStats[statHistory.length + 1]; // robust to length changes
 		
 		// copies only existing data, leaves last row blank
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array[0].length; j++) {
-				modifiedArray[i][j] = array[i][j];
-			}
+		for (int i = 0; i < statHistory.length; i++) {
+				modifiedArray[i] = statHistory[i];
 		}
 		
 		return modifiedArray;
 	}
 	
-	private int getNextEmptyRow (int[][] array) {
+	private int getNextEmptyRow (SoldierStats[] array) {
 		return array.length - 1;
 	}
 	
@@ -166,13 +168,26 @@ public class Soldier {
 				+ "\nStats:\t"			+ baseHp + " " + baseMobility + " " + baseWill + " " +
 										baseAim + " " + defense + "\n";
 		
-		output += "Operation History:\n"
-				+ "ID\tKills\tRank\tHP\tMob\tWill\tAim\tWounds\tDays Out\n";
-		for (int i = 0; i < operationHistory.length; i++) {
-			for (int j = 0; j < operationHistory[0].length; j++) {
-				output += operationHistory[i][j] + "\t";
-			}
+		output += "Stat History:\n"
+				+ "ID\tKills\tRank\tHP\tMob\tWill\tAim\tWounds\tDays Out";
+		
+		for (int i = 0; i < statHistory.length; i++) {
 			output += "\n";
+			if (statHistory[i].getReasonForChange() == SoldierStats.OPERATION)
+				output += statHistory[i].getOperationId() + "\t";
+			else if (statHistory[i].getReasonForChange() == SoldierStats.PSI_TRAINING)
+				output += statHistory[i].getPsiId() + "\t";
+			else
+				output += statHistory[i].getMecId() + "\t";
+			
+			output += statHistory[i].getKills() + 		"\t";
+			output += statHistory[i].getRank() + 		"\t";
+			output += statHistory[i].getHp() + 			"\t";
+			output += statHistory[i].getMobility() + 	"\t";
+			output += statHistory[i].getWill() + 		"\t";
+			output += statHistory[i].getAim() + 		"\t";
+			output += statHistory[i].getWoundedStatus() + "\t";
+			output += statHistory[i].getDaysOut() + 	"\t";
 		}
 		
 		return output;
