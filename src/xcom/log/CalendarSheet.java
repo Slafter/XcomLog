@@ -7,7 +7,7 @@ public class CalendarSheet {
 	
 	public static final int MAX_CALENDAR_DAYS = 1500;
 	private static final Calendar START_DATE = new GregorianCalendar(2015, 3, 1);
-	private static final long millisecondsPerDay = 86400000;
+	private static final long MILLISECONDS_PER_DAY = 86400000;
 	
 	private CalendarDay[] calendar = new CalendarDay[MAX_CALENDAR_DAYS];
 	
@@ -41,7 +41,7 @@ public class CalendarSheet {
 		long milliseconds;
 		
 		milliseconds = calendar.getTimeInMillis() - START_DATE.getTimeInMillis();
-		index = milliseconds / millisecondsPerDay;
+		index = milliseconds / MILLISECONDS_PER_DAY;
 		
 		return (int)index;
 	}
