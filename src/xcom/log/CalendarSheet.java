@@ -3,8 +3,6 @@ package xcom.log;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import xcom.log.event.Event;
-
 public class CalendarSheet {
 	
 	public static final int MAX_CALENDAR_DAYS = 1500;

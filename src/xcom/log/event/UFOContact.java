@@ -12,7 +12,7 @@ public class UFOContact extends Event {
 	public static final int ABDUCTOR = 			5;
 	public static final int HARVESTER = 		6;
 	public static final int TRANSPORT = 		7;
-	public static final int SUPPLY_BARGE = 		8;
+	public static final int TERROR_SHIP = 		8;
 	public static final int BATTLESHIP = 		9;
 	public static final int ASSAULT_CARRIER = 	10;
 	public static final int UNIDENTIFIED_TYPE = 11;
