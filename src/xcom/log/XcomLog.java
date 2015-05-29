@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
+import xcom.log.event.Operation;
 import jxl.*;
 import jxl.read.biff.BiffException;
 import jxl.write.*;

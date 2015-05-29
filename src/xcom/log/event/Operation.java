@@ -1,4 +1,5 @@
-package xcom.log;
+package xcom.log.event;
+
 
 public class Operation extends Event {
 	public static final int MAX_SOLDIERS_PER_MISSION = 12;
@@ -61,13 +62,13 @@ public class Operation extends Event {
 	private int outcome;
 	private int[] soldierId = new int[MAX_SOLDIERS_PER_MISSION];	// the id numbers of soldiers on the mission
 	
-	Operation() {
+	public Operation() {
 		operationId = numberOfOperations;
 		numberOfOperations++;
 		this.majorEvent = true;
 	}
 	
-	Operation(int type, int location) {
+	public Operation(int type, int location) {
 		this.type = type;
 		this.location = location;
 		operationId = numberOfOperations;
@@ -76,7 +77,7 @@ public class Operation extends Event {
 	}
 	
 	// Precondition: soldierId must be of length 12 or less
-	Operation(int type, int location, int[] soldierId) {
+	public Operation(int type, int location, int[] soldierId) {
 		this.type = type;
 		this.location = location;
 		for (int i = 0; i < soldierId.length; i++) {
@@ -87,7 +88,7 @@ public class Operation extends Event {
 		this.majorEvent = true;
 	}
 	
-	Operation(Operation operation) {
+	public Operation(Operation operation) {
 		this.name = operation.getName();
 		this.operationId = operation.getOperationId();
 		this.location = operation.getLocation();

@@ -1,4 +1,4 @@
-package xcom.log;
+package xcom.log.event;
 
 public abstract class Event {
 	

@@ -1,5 +1,7 @@
 package xcom.log;
 
+import xcom.log.event.Event;
+
 public class CalendarDay {
 
 	public static final int MAX_EVENTS_PER_DAY = 20; 
