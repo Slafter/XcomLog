@@ -56,7 +56,7 @@ public class Soldier {
 	
 	private SoldierStats[] statHistory = new SoldierStats[1];
 
-	Soldier (Calendar dateRecruited, String name, int hp, int mobility, int will, int aim, int defense) {
+	public Soldier (Calendar dateRecruited, String name, int hp, int mobility, int will, int aim, int defense) {
 		this.dateRecruited = dateRecruited;
 		this.name = name;
 		this.baseHp = hp;
